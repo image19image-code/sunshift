@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SunShift</title>
+  </head>
+  <body>
+    <main class="app">
+      <h1>SunShift</h1>
+      <p class="tagline">Run your appliances when the sun is strongest.</p>
+
+      <form id="city-form" novalidate>
+        <label for="city-input">City</label>
+        <input id="city-input" type="text" placeholder="Enter a city" maxlength="80" autocomplete="off" />
+
+        <label for="panel-input">Solar panel size (kW)</label>
+        <input id="panel-input" type="number" value="3" min="0.5" max="100" step="0.5" />
+
+        <fieldset class="appliances">
+          <legend>Appliances</legend>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Use</th>
+                  <th>Appliance</th>
+                  <th>Power (kW)</th>
+                  <th>Run time (h)</th>
+                  <th>Usual start (hour)</th>
+                </tr>
+              </thead>
+              <tbody id="appliance-rows"></tbody>
+            </table>
+          </div>
+          <p class="note">SunShift may move each appliance to any time between 07:00 and 23:00.</p>
+        </fieldset>
+
+        <div class="actions">
+          <button type="submit" id="go-btn">Get solar forecast</button>
+        </div>
+      </form>
+
+      <p id="status" role="status" aria-live="polite"></p>
+
+      <section id="result" hidden>
+        <h2 id="place"></h2>
+        <p id="summary"></p>
+
+        <h3>Recommended schedule</h3>
+        <p id="impact" class="impact"></p>
+        <div style="position: relative; height: 320px; background: #fff; padding: 8px; border-radius: 8px; margin-bottom: 12px;">
+          <canvas id="chart" role="img" aria-label="Solar output and appliance load, before and after scheduling"></canvas>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Appliance</th>
+                <th>Power (kW)</th>
+                <th>Usual time</th>
+                <th>Best time</th>
+              </tr>
+            </thead>
+            <tbody id="schedule-rows"></tbody>
+          </table>
+        </div>
+
+        <h3>Hourly forecast</h3>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>Solar radiation (W/m²)</th>
+                <th>Temperature (°C)</th>
+                <th>Cloud cover (%)</th>
+                <th>Est. solar output (kW)</th>
+              </tr>
+            </thead>
+            <tbody id="rows"></tbody>
+          </table>
+        </div>
+        <p class="note">All energy figures are model estimates (system efficiency 85%, temperature-corrected), not measurements.</p>
+      </section>
+
+      <footer>
+        Weather data by
+        <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo.com</a>
+        (CC BY 4.0)
+      </footer>
+    </main>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
